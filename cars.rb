@@ -24,6 +24,22 @@ class Car
 	def self.total_car_count
 		@@total_car_count
 	end
+	def self.most_popular_color
+		pop_color = @@cars_per_color.max_by{|k,v| v}
+		return pop_color[0]
+	end
+	def change_color(new_color)
+		@@cars_per_color[@color] -= 1
+		if @@cars_per_color[@color] == 0
+			@@cars_per_color.delete(@color)
+		end
+		@color = new_color
+		if @@cars_per_color[@color]
+			@@cars_per_color[@color] += 1
+		else
+			@@cars_per_color[@color] = 1
+		end
+	end
 	def drive(miles)
 		if (@fuel - miles/20.0) >= 0
 			@distance += miles
@@ -41,15 +57,3 @@ class Car
 		@fuel = 10.0
 	end
 end
-
-# car_a = Car.new()
-# car_b = Car.new()
-# puts car_a
-# puts car_b
-# car_a.drive(10)
-# puts car_a
-# puts car_b
-# car_a.drive(232)
-# car_b.drive(117)
-# puts car_a
-# puts car_b
