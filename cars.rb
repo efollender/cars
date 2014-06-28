@@ -7,15 +7,29 @@ class Car
 		"I'm a car! I've driven #{@distance} and have #{@fuel} gallons gas left"
 	end
 
-	def initialize(color)
+	def initialize(color="blue",convertible="false" )
 		@fuel = 10
 		@distance = 0
 		@color = color
+		@convertible = convertible
+		if @convertible == "true"
+			@roof_status = "The top is closed."
+		end
 		@@total_car_count +=1
 		if @@cars_per_color[@color]
 			@@cars_per_color[@color] += 1
 		else
 			@@cars_per_color[@color] = 1
+		end
+	end
+	def top_down
+		if @convertible == "true"
+			@roof_status = "The top is down."
+		end
+	end
+	def close_top
+		if @convertible == "true"
+			@roof_status = "The top is closed."
 		end
 	end
 	def self.cars_per_color
